@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 
+# Import models here
+import models
+
 # Set Debug =  true and port =  8000
 DEBUG= True
 PORT=8000
@@ -42,4 +45,7 @@ def my_pets():
 
 # Set up a PORT here
 if __name__ == '__main__':
+
+    # Require database here
+    models.connectToLaptopDatabase()
     app.run(debug=DEBUG, port=PORT)
