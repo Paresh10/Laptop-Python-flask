@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 # Set Debug =  true and port =  8000
 DEBUG= True
@@ -13,6 +13,27 @@ app =   Flask(__name__)
 def greetings():
     return "Hello world!"
 
+@app.route('/pets')
+def my_pets():
+    cat = [
+        {
+            'name': 'Sanjay',
+            'age': 4,
+            'color': 'orange'
+    },
+        {
+            'name': 'Cathy',
+            "age": 2,
+            'color': 'buff'
+        }
+    ]
+    dog = {
+        'name': 'Buddy',
+        'age': 2,
+        'color': 'baige'
+    }
+
+    return jsonify(name="Paresh", pets=[cat, dog])
 
 
 
