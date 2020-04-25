@@ -8,7 +8,17 @@ PORT=8000
 app =   Flask(__name__)
 
 
+# Get home route
+@app.route('/')
+def greetings():
+    return "Hello world!"
 
 
+
+
+
+
+
+# Set up a PORT here
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
