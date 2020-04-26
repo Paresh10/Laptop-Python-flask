@@ -13,11 +13,16 @@ laptops = Blueprint('laptops', 'laptops')
 
 
 # Get route for laptops
-# @laptops.route('/', methods=['GET'])
-# def laptops_model():
-#     laptops = models.Laptop.select()
-#     print('All the detai; of the laptops')
-#     print(laptops)
+@laptops.route('/', methods=['GET'])
+def laptops_model():
+    laptops = models.Laptop.select().dicts()
+
+    return jsonify(
+        data=[laptop for laptop in laptops],
+        message="Found {} laptops in the database".format(len(laptops)),
+        status = 201
+        ), 201
+
 
 # Create laptops route
 @laptops.route('/', methods=['POST'])
