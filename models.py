@@ -1,7 +1,7 @@
 from peewee import *
 
 # import python built in date here
-import datetime
+from datetime import date
 
 
 # Databse
@@ -17,7 +17,7 @@ class Laptop(Model):
 
     maker = CharField() # String
     model = CharField() # String
-    manufactured_on: DateField(default=datetime.datetime.date)
+    manufactured_on = DateField(default=date.today())
 
 def connectToLaptopDatabase():
     DATABASE.connect()
