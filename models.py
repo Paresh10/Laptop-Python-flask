@@ -2,6 +2,8 @@ from peewee import *
 
 # import python built in date here
 import datetime
+
+
 # Databse
 DATABASE = SqliteDatabase('laptops.sqlite')
 

@@ -32,6 +32,19 @@ def create_laptop():
         model=payload['model'],
         manufactured_on=payload['manufactured_on'])
 
-    print(new_laptop)
     print(new_laptop.__dict__)
-    return "Here is "
+
+    laptop_dict = model_to_dict(new_laptop)
+
+    return jsonify(
+        data=laptop_dict,
+        message="{} laptop was created".format(laptop_dict['model']),
+        status=201
+    ), 201
+
+
+
+
+
+
+    # return "Here is "
