@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 
+# Import laptops file here
+from resources.laptops import laptops
+
 # Import models here
 import models
 
@@ -10,6 +13,9 @@ PORT=8000
 # Set app = flask
 app =   Flask(__name__)
 
+
+# Setup the blueprint to use here
+app.register_blueprint(laptops, url_prefix='/api/v1/laptops')
 
 # Get home route
 @app.route('/')
