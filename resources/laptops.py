@@ -48,7 +48,18 @@ def create_laptop():
     ), 201
 
 
+# Delete Route
+@laptops.route('/<id>', methods=['DELETE'])
+def laptops_to_delete(id):
+    laptop_delete_query = models.Laptop.delete().where(models.Laptop.id == id)
+    num_of_raws_deleted = laptop_delete_query.execute()
+    print(num_of_raws_deleted)
 
+    return jsonify(
+        data={},
+        message=f"{num_of_raws_deleted, id} was just deleted",
+        status=200
+        ), 200
 
 
 
