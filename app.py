@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 
+# Import Cors here
+from flask_cors import CORS
+
 # Import laptops file here
 from resources.laptops import laptops
 
@@ -12,6 +15,13 @@ PORT=8000
 
 # Set app = flask
 app =   Flask(__name__)
+
+
+#Implement CORS here
+# First Arg = Blueprint
+# Second Arg = Origin to be allowed
+# Third Arg = To enable cookies for in order to use it as session
+CORS(laptops, origins=['http://localhost:3000'], supports_credentials=True)
 
 
 # Setup the blueprint to use here
