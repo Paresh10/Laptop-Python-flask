@@ -78,6 +78,11 @@ def sign_up():
 def log_in():
 
     payload = request.get_json()
+
+    #LowerCase username and email using payload
+    payload['username'] = payload['username'].lower()
+    payload['email'] = payload['email'].lower()
+
     #Check users email for logging them in
     try:
         user = models.User.get(models.User.email == payload['email'])
@@ -89,31 +94,37 @@ def log_in():
             user_dict['password'],
             payload['password']
             )
+
         #If password right then log in the user
         if(correct_password):
             login_user(user)
 
-        # Respond with data and remove the password
-        user_dict.pop('password')
+            # Respond with data and remove the password
+            user_dict.pop('password')
 
-        return jsonify(
-            data=user_dict,
-            message=f"Logged in as {user_dict['email']}",
-            status=200
-        ), 200
+            return jsonify(
+                data=user_dict,
+                message=f"Logged in as {user_dict['email']}",
+                status=200
+            ), 200
 
         #If password not right respond incorrect password
+        else:
+            return jsonify(
+                data={},
+                message="Password does not match",
+                status=401
+            ), 401
 
-        #else if user does not exist
 
-        # respond username or password not correct
+
 
 
 
 
     except models.DoesNotExist:
-        print('Username not good')
 
+        #else if user does not exist
         return jsonify(
             data={},
             message="Email or password incorrect",
