@@ -62,5 +62,43 @@ def laptops_to_delete(id):
         ), 200
 
 
+#Update route
+@laptops.route('/<id>', methods=['PUT'])
+def update_laptop(id):
+    payload = request.get_json()
+
+    update_query = models.Laptop.update(
+        model=payload['model'],
+        maker=payload['maker']
+    ).where(models.Laptop.id == id)
+
+    num_of_raws_updated = update_query.execute()
+
+    #Send data back as json
+    updated_laptop = models.Laptop.get_by_id(id)
+    updated_laptop_dict = model_to_dict(updated_laptop)
+
+    return jsonify(
+        data=updated_laptop_dict,
+        message=f"{updated_laptop.model} was updated",
+        status=200
+    ), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # return "Here is "

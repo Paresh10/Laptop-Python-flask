@@ -17,7 +17,7 @@ class Laptop(Model):
 
     maker = CharField() # String
     model = CharField() # String
-    manufactured_on = DateField(default=date.today())
+    manufactured_on = DateField()
 
 def connectToLaptopDatabase():
     DATABASE.connect()
