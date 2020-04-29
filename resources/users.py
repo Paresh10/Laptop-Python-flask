@@ -6,6 +6,9 @@ from flask import Blueprint, request, jsonify
 #Import password related dependencies here
 from flask_bcrypt import generate_password_hash
 
+#Import model_to_dict here from peewee - playhouse
+from playhouse.shortcuts import model_to_dict
+
 # Convert it to a blueprint
 users = Blueprint('users', 'users')
 
@@ -25,8 +28,6 @@ def sign_up():
     #LowerCase username and email using payload
     payload['username'] = payload['username'].lower()
     payload['email'] = payload['email'].lower()
-
-    print(payload)
 
     try:
         models.User.get(models.User.email == payload['email'])
@@ -50,9 +51,21 @@ def sign_up():
             password=password_hash
         )
 
-        print(user_created)
+        #Convert user_created in to the dictionary
+        user_created_dict = model_to_dict(user_created)
+        print(user_created_dict)
 
-        return 'Hey'
+        #Password can not be jsonf. The password type is byte
+        print(type(user_created_dict['password']))
+
+        #Pop the password out when sending user data
+        user_created_dict.pop('password')
+
+        return jsonify(
+            data=user_created_dict,
+            message=f"Congrats you can log in using {user_created_dict['email']}",
+            status=201
+        ), 201
 
 
 
