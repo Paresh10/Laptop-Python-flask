@@ -131,7 +131,20 @@ def log_in():
             status=401
         ), 401
 
+# Users index route
+@users.route('/all', methods=['GET'])
+def user_index():
 
+    #Query user database
+    users = models.User.select()
+
+    user_dicts = [model_to_dict(user) for user in users]
+
+    #Pop the password out
+    for user_dict in user_dicts:
+        user_dict.pop('password')
+        print(user_dict)
+        return jsonify(user_dict), 200
 
 
 
